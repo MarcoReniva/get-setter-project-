@@ -47,13 +47,14 @@ namespace ConsoleApp7
             }
 
         }
-       
+
+      private static  List<BankAccount> accounts = new List<BankAccount>();
+
         static void Main(string[] args)
         {
             bool cont = false;
             while (!cont) 
             {
-                List<BankAccount> accounts = new List<BankAccount>();
                 accounts.Add(new BankAccount("ACC56", "Secreto", "6668", 1400, 1400000000000000));
                 accounts.Add(new BankAccount("ACC78", "Art", "3321", 29999, 100000));
                 accounts.Add(new BankAccount("ACC943", "Marco", "2222", 263, 200000));
