@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+
+        public class BankAccount
+        {
+            private string accountname;
+            public string Accountnum {get; private set; }
+            private string pin;
+            public decimal Balance { get; private set; }
+            public decimal Debts { get; private set; }    
+            public string Ownername 
+            {
+                get { return accountname;  }
+                set 
+                {
+                    if (string.IsNullOrWhiteSpace(value)) 
+                    {
+                        Console.WriteLine("Owner Cannot be Empty");
+                    }
+                    else
+                    {
+                        accountname = value.Trim().ToUpper();
+                    }
+                   
+                }
+            }
+            public BankAccount(string accountnum ,string owner, string pin, decimal balance, decimal debts)
+            {
+                Accountnum = accountnum;
+                Ownername = owner;
+                Balance = balance;
+                Debts = debts;
+                this.pin = pin;
+
+            }
+            public bool Pinverify (string enteredpin)
+            {
+                return pin == enteredpin;
+            }
+
+        }
+       
+        static void Main(string[] args)
+        {
+            bool cont = false;
+            while (!cont) 
+            {
+                List<BankAccount> accounts = new List<BankAccount>();
+                accounts.Add(new BankAccount("ACC56", "Secreto", "6668", 1400, 1400000000000000));
+                accounts.Add(new BankAccount("ACC78", "Art", "3321", 29999, 100000));
+                accounts.Add(new BankAccount("ACC943", "Marco", "2222", 263, 200000));
+                accounts.Add(new BankAccount("ACC944", "Gian", "2222", 263, 200000000));
+
+
+                Console.WriteLine("Enter Account Name");
+                string accountnum = Console.ReadLine().ToUpper();
+                Console.WriteLine("Account Pin");
+                string pin = Console.ReadLine().ToUpper();
+                BankAccount loggedIn = null;
+                foreach (BankAccount acc in accounts)
+                {
+                    if (acc.Accountnum == accountnum && acc.Pinverify(pin))
+                    {
+                        loggedIn = acc;
+                        break;
+                    }
+                }
+
+                if (loggedIn != null)
+                {
+                    Console.Clear();
+                    Console.WriteLine("            Account Viewing                ");
+                    Console.Write("==============================================");
+                    Console.WriteLine();
+                    Console.WriteLine($"Account Holder:  {loggedIn.Ownername}");
+                    Console.WriteLine($"Account Balance: {loggedIn.Balance}");
+                    Console.WriteLine($"Debts: {loggedIn.Debts}");
+                    Console.Write("==============================================");
+                    cont = true;
+
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid name or PIN.");
+                    cont = false;
+                   
+                }
+
+            }
+           
+        }
+    }
+}
